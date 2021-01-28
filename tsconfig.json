@@ -25,7 +25,10 @@
     },
     "types": [
       "@nuxt/types",
-      "@types/node"
+      "@types/node",
+      "@nuxtjs/auth-next",
+      "@nuxtjs/toast",
+      "nuxt-i18n",
     ]
   },
   "exclude": [

@@ -1,4 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+import pkg from './package'
+require('dotenv').config()
 
 export default {
   srcDir: 'src',
@@ -32,6 +35,8 @@ export default {
     '@nuxtjs/stylelint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    // https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/dotenv',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -40,6 +45,12 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    // https://auth.nuxtjs.org/
+    '@nuxtjs/auth-next',
+    // https://github.com/nuxt-community/community-modules/tree/master/packages/toast
+    '@nuxtjs/toast',
+    // https://i18n.nuxtjs.org/
+    'nuxt-i18n',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -48,7 +59,7 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      lang: 'en',
+      lang: 'ja',
     },
   },
 
@@ -72,6 +83,64 @@ export default {
         },
       },
     },
+  },
+
+  // Auth configuration
+  auth: {
+    redirect: {
+      login: '/users/sign_in',
+      logout: '/',
+      callback: '/users/auth/callback',
+      home: '/',
+    },
+    strategies: {
+      oauth2: {
+        scheme: 'oauth2',
+        endpoints: {
+          authorization: `${process.env.AUTH_API_BASE_URL}/auth/oauth/authorize`,
+          token: `${process.env.AUTH_API_BASE_URL}/auth/oauth/token`,
+          userInfo: `${process.env.AUTH_API_BASE_URL}/api/v1/me`,
+          logout: false,
+        },
+        token: {
+          property: 'access_token',
+          type: 'Bearer',
+          maxAge: 60 * 60 * 2,
+        },
+        responseType: 'code',
+        grantType: 'authorization_code',
+        accessType: undefined,
+        redirectUri: undefined,
+        logoutRedirectUri: undefined,
+        clientId: process.env.AUTH_API_OAUTH2_CLIENT_ID,
+        scope: [],
+        state: 'UNIQUE_AND_NON_GUESSABLE',
+        codeChallengeMethod: '',
+        responseMode: '',
+        acrValues: '',
+        autoLogout: true,
+      },
+    },
+  },
+
+  // Toast configuration
+  toast: {
+    position: 'top-right',
+    duration: 5000,
+  },
+
+  // i18n configuration
+  i18n: {
+    locales: [
+      {
+        code: 'ja',
+        iso: 'ja',
+        file: 'ja.js',
+      },
+    ],
+    defaultLocale: 'ja',
+    lazy: true,
+    langDir: 'locales/',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
