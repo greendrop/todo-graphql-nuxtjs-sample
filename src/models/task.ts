@@ -6,3 +6,12 @@ export interface ITask {
   createdAt: Date | null
   updatedAt: Date | null
 }
+
+export const initialTask: ITask = {
+  id: 0,
+  title: '',
+  description: '',
+  done: false,
+  createdAt: null,
+  updatedAt: null,
+}

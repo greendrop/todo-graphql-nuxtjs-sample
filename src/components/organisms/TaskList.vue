@@ -29,6 +29,7 @@
                 <th>
                   {{ $t('models.attributes.task.updatedAt') }}
                 </th>
+                <th />
               </tr>
             </thead>
             <tbody v-if="tasks">
@@ -39,6 +40,11 @@
                 <td>{{ task.done }}</td>
                 <td>{{ datetimeFormat(task.createdAt) }}</td>
                 <td>{{ datetimeFormat(task.updatedAt) }}</td>
+                <td>
+                  <v-icon class="mr-1" small @click="showTask(task)">
+                    fas fa-chevron-down
+                  </v-icon>
+                </td>
               </tr>
             </tbody>
           </template>
@@ -102,6 +108,9 @@ export default Vue.extend({
     },
     getNextTasks() {
       this.$emit('getNextTasks')
+    },
+    showTask(task: ITask) {
+      this.$router.push(`/tasks/${task.id}`)
     },
     datetimeFormat(value: any, format: string) {
       return datetimeFormat(value, format)

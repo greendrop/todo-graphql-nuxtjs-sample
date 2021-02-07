@@ -13,6 +13,7 @@
         </div>
       </v-col>
     </v-row>
+
     <v-row>
       <v-col>
         <v-btn class="float-right" to="/tasks/new">
@@ -72,7 +73,7 @@ export default class Page extends Vue {
   isFetching = false
 
   mounted() {
-    this.getTasks({ first: 2 })
+    this.getTasks({})
   }
 
   async getTasks({
@@ -101,12 +102,12 @@ export default class Page extends Vue {
 
   async getNextTasks() {
     const after = taskListStore.pageInfo.endCursor
-    await this.getTasks({ after, first: 2 })
+    await this.getTasks({ after })
   }
 
   async getPreviousTasks() {
     const before = taskListStore.pageInfo.startCursor
-    await this.getTasks({ before, last: 2 })
+    await this.getTasks({ before })
   }
 }
 </script>
