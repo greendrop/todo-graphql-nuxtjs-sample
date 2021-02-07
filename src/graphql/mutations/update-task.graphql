@@ -1,0 +1,18 @@
+mutation UpdateTask($id: ID!, $title: String!, $description: String!, $done: Boolean!) {
+  updateTask(input: {
+    id: $id
+    title: $title
+    description: $description
+    done: $done
+  })
+  {
+    task {
+      id
+      title
+      description
+      done
+      createdAt
+      updatedAt
+    }
+  }
+}

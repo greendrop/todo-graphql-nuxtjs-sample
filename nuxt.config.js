@@ -85,11 +85,16 @@ export default {
     },
   },
 
+  // dotenv configuration
+  dotenv: {
+    path: './',
+  },
+
   // Auth configuration
   auth: {
     redirect: {
       login: '/users/sign_in',
-      logout: '/',
+      logout: '/users/sign_out',
       callback: '/users/auth/callback',
       home: '/',
     },
@@ -100,25 +105,10 @@ export default {
           authorization: `${process.env.AUTH_API_BASE_URL}/auth/oauth/authorize`,
           token: `${process.env.AUTH_API_BASE_URL}/auth/oauth/token`,
           userInfo: `${process.env.AUTH_API_BASE_URL}/api/v1/me`,
-          logout: false,
-        },
-        token: {
-          property: 'access_token',
-          type: 'Bearer',
-          maxAge: 60 * 60 * 2,
         },
         responseType: 'code',
         grantType: 'authorization_code',
-        accessType: undefined,
-        redirectUri: undefined,
-        logoutRedirectUri: undefined,
         clientId: process.env.AUTH_API_OAUTH2_CLIENT_ID,
-        scope: [],
-        state: 'UNIQUE_AND_NON_GUESSABLE',
-        codeChallengeMethod: '',
-        responseMode: '',
-        acrValues: '',
-        autoLogout: true,
       },
     },
   },

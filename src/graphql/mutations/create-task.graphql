@@ -1,0 +1,17 @@
+mutation CreateTask($title: String!, $description: String!, $done: Boolean!) {
+  createTask(input: {
+    title: $title
+    description: $description
+    done: $done
+  })
+  {
+    task {
+      id
+      title
+      description
+      done
+      createdAt
+      updatedAt
+    }
+  }
+}

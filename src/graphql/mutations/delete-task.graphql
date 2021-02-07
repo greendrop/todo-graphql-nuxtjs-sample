@@ -1,0 +1,15 @@
+mutation DeleteTask($id: ID!) {
+  deleteTask(input: {
+    id: $id
+  })
+  {
+    task {
+      id
+      title
+      description
+      done
+      createdAt
+      updatedAt
+    }
+  }
+}

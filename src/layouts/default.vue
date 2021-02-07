@@ -7,7 +7,7 @@
       fixed
       app
     >
-      <navigation-list-component />
+      <navigation-list />
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -25,11 +25,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import NavigationListComponent from '~/components/organisms/NavigationListComponent.vue'
+import NavigationList from '~/components/organisms/NavigationList.vue'
 
 export default Vue.extend({
   components: {
-    NavigationListComponent,
+    NavigationList,
   },
   data() {
     return {

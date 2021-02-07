@@ -8,24 +8,22 @@
         <v-list-item-title v-text="item.title" />
       </v-list-item-content>
     </v-list-item>
-    <client-only>
-      <v-list-item v-if="!signedIn" @click="signIn()">
-        <v-list-item-action>
-          <v-icon small> fas fa-sign-in-alt </v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title v-text="$t('labels.signIn')" />
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item v-if="signedIn" @click="signOut()">
-        <v-list-item-action>
-          <v-icon small> fas fa-sign-out-alt </v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title v-text="$t('labels.signOut')" />
-        </v-list-item-content>
-      </v-list-item>
-    </client-only>
+    <v-list-item v-if="!$auth.$state.loggedIn" @click="signIn()">
+      <v-list-item-action>
+        <v-icon small> fas fa-sign-in-alt </v-icon>
+      </v-list-item-action>
+      <v-list-item-content>
+        <v-list-item-title v-text="$t('labels.signIn')" />
+      </v-list-item-content>
+    </v-list-item>
+    <v-list-item v-if="$auth.$state.loggedIn" @click="signOut()">
+      <v-list-item-action>
+        <v-icon small> fas fa-sign-out-alt </v-icon>
+      </v-list-item-action>
+      <v-list-item-content>
+        <v-list-item-title v-text="$t('labels.signOut')" />
+      </v-list-item-content>
+    </v-list-item>
   </v-list>
 </template>
 
@@ -40,6 +38,11 @@ export default Vue.extend({
           icon: 'fas fa-home',
           title: this.$i18n.t('labels.home').toString(),
           to: '/',
+        },
+        {
+          icon: 'fas fa-list',
+          title: this.$i18n.t('models.task').toString(),
+          to: '/tasks',
         },
       ],
     }
@@ -58,6 +61,7 @@ export default Vue.extend({
     },
     async signOut() {
       await this.$auth.logout().then(() => {
+        this.$forceUpdate()
         this.$toast.success(this.$i18n.t('messages.signedOut').toString())
       })
     },
