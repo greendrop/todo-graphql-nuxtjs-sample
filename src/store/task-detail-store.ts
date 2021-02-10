@@ -13,7 +13,7 @@ import TaskRepository from '~/repositories/task-repository'
   namespaced: true, // eslint-disable-line no-undef
 })
 export default class TaskDetailStore extends VuexModule {
-  item: ITask = initialTask
+  item: ITask = initialTask()
 
   @Mutation
   setItem(item: ITask) {

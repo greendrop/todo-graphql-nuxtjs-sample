@@ -16,7 +16,7 @@ import TaskRepository from '~/repositories/task-repository'
 export default class TaskListStore extends VuexModule {
   items: ITask[] = []
   totalCount: number = 0
-  pageInfo: IPageInfo = initialPageInfo
+  pageInfo: IPageInfo = initialPageInfo()
 
   @Mutation
   setItems(items: ITask[]) {

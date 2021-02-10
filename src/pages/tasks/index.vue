@@ -68,7 +68,7 @@ export default class Page extends Vue {
   ]
 
   tasks: ITask[] = []
-  pageInfo: IPageInfo = initialPageInfo
+  pageInfo: IPageInfo = initialPageInfo()
   totalCount = 0
   isFetching = false
 

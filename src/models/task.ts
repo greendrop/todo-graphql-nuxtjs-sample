@@ -7,11 +7,13 @@ export interface ITask {
   updatedAt: Date | null
 }
 
-export const initialTask: ITask = {
-  id: 0,
-  title: '',
-  description: '',
-  done: false,
-  createdAt: null,
-  updatedAt: null,
+export function initialTask(): ITask {
+  return {
+    id: 0,
+    title: '',
+    description: '',
+    done: false,
+    createdAt: null,
+    updatedAt: null,
+  }
 }

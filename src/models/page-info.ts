@@ -5,9 +5,11 @@ export interface IPageInfo {
   endCursor: string | null
 }
 
-export const initialPageInfo: IPageInfo = {
-  hasPreviousPage: false,
-  hasNextPage: false,
-  startCursor: null,
-  endCursor: null,
+export function initialPageInfo(): IPageInfo {
+  return {
+    hasPreviousPage: false,
+    hasNextPage: false,
+    startCursor: null,
+    endCursor: null,
+  }
 }

@@ -9,14 +9,14 @@
     <v-row>
       <v-col>
         <div class="headline">
-          {{ $t('labels.showModel', { model: $t('models.task') }) }}
+          {{ $t('labels.newModel', { model: $t('models.task') }) }}
         </div>
       </v-col>
     </v-row>
 
     <v-row>
       <v-col>
-        <task-detail :task="task" :is-fetching="isFetching" />
+        <task-new />
       </v-col>
     </v-row>
   </div>
@@ -24,15 +24,12 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import TaskDetail from '~/components/organisms/TaskDetail.vue'
-import { ITask, initialTask } from '~/models/task'
-import { taskDetailStore } from '~/store'
+import TaskNew from '~/components/organisms/TaskNew.vue'
 
 @Component({
-  components: { TaskDetail }, // eslint-disable-line no-undef
+  components: { TaskNew }, // eslint-disable-line no-undef
 })
 export default class Page extends Vue {
-  id = this.$route.params.id
   breadcrumbItems = [
     {
       text: this.$i18n.t('labels.home'),
@@ -49,31 +46,13 @@ export default class Page extends Vue {
       disabled: false,
     },
     {
-      text: this.$i18n.t('labels.showModel', {
+      text: this.$i18n.t('labels.newModel', {
         model: this.$i18n.t('models.task'),
       }),
-      to: `/tasks/${this.id}`,
+      to: '/tasks/new',
       exact: true,
       disabled: true,
     },
   ]
-
-  task: ITask = initialTask()
-  isFetching = false
-
-  mounted() {
-    this.getTask()
-  }
-
-  async getTask() {
-    this.isFetching = true
-    try {
-      await taskDetailStore.fetch({ id: Number(this.id) })
-    } catch (error) {
-      console.error(error) // eslint-disable-line no-console
-    }
-    this.task = taskDetailStore.item
-    this.isFetching = false
-  }
 }
 </script>
