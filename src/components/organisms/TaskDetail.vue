@@ -78,6 +78,7 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { ITask } from '~/models/task'
 import { datetimeFormat } from '~/lib/filter'
+import { taskDeleteStore } from '~/store'
 
 @Component
 export default class TaskDetail extends Vue {
@@ -95,6 +96,19 @@ export default class TaskDetail extends Vue {
     return datetimeFormat(value, format)
   }
 
-  async deleteTask() {}
+  async deleteTask() {
+    if (confirm(this.$t('messages.destroyConfirm').toString())) {
+      try {
+        await taskDeleteStore.delete({ id: this.task.id })
+        const message = this.$t('messages.destroyModel', {
+          model: this.$t('models.task'),
+        }).toString()
+        this.$toast.success(message)
+        this.$router.push('/tasks')
+      } catch (error) {
+        console.log(error) // eslint-disable-line no-console
+      }
+    }
+  }
 }
 </script>

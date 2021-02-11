@@ -60,4 +60,14 @@ export default {
     }
     return sdk.UpdateTask(variables)
   },
+
+  delete({ id }: { id: number }) {
+    const headers = { Authorization: getAuthToken() }
+    const client = new GraphQLClient(process.env.GRAPHQL_URL || '', { headers })
+    const sdk = getSdk(client)
+    const variables = {
+      id: id.toString(),
+    }
+    return sdk.DeleteTask(variables)
+  },
 }
