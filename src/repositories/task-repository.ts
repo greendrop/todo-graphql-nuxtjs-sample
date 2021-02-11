@@ -47,4 +47,17 @@ export default {
     }
     return sdk.CreateTask(variables)
   },
+
+  update({ id, taskForm }: { id: number; taskForm: ITaskForm }) {
+    const headers = { Authorization: getAuthToken() }
+    const client = new GraphQLClient(process.env.GRAPHQL_URL || '', { headers })
+    const sdk = getSdk(client)
+    const variables = {
+      id: id.toString(),
+      title: taskForm.title,
+      description: taskForm.description || '',
+      done: taskForm.done,
+    }
+    return sdk.UpdateTask(variables)
+  },
 }
